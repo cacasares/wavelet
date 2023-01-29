@@ -6,22 +6,27 @@ class Handler implements URLHandler {
     // The one bit of state on the server: a number that will be manipulated by
     // various requests.
     int num = 0;
+    ArrayList<String> searches = new ArrayList<>();
 
     public String handleRequest(URI url) {
         if (url.getPath().equals("/")) {
-            return String.format("Carl's Number: %d", 725);
-        } else if (url.getPath().equals("/increment")) {
+            return String.format("Please enter a string:");
+        } 
+        else if (url.getPath().equals("/CSE")) {
             num += 1;
-            return String.format("Number incremented!");
-        } else {
-            System.out.println("Path: " + url.getPath());
-            if (url.getPath().contains("/add")) {
-                String[] parameters = url.getQuery().split("=");
-                if (parameters[0].equals("count")) {
-                    num += Integer.parseInt(parameters[1]);
-                    return String.format("Number increased by %s! It's now %d", parameters[1], num);
+            return String.format("Computer science slays!");
+        } 
+        else if (url.getPath().contains("/search")){
+            ArrayList<String> list= new ArrayList<>();
+            String[] inputs = url.getQuery().split("=");
+            for(String search: searches){
+                if(search.contains(inputs[1])){
+                    list.add(search);
                 }
             }
+            return String.format("Words with %s: %s", inputs[1], list.toString());
+        }
+        else {
             return "404 Not Found!";
         }
     }
