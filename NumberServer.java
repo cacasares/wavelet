@@ -15,6 +15,7 @@ class Handler implements URLHandler {
         } else if (url.getPath().contains("/add-message")) {
             String[] parameters = url.getQuery().split("=");
             //continuously concatenate the string (/add-message?s=<string>) after the '=' to the initialized empty string input
+            //edit
             inputs+= parameters[1]+ "\n";
             return String.format(inputs);
         } else {
